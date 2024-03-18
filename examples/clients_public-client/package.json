@@ -6,7 +6,6 @@
     "dev": "vite"
   },
   "dependencies": {
-    "viem": "latest",
     "strkjs": "latest"
   },
   "devDependencies": {

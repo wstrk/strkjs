@@ -1,6 +1,6 @@
 import { defineChain } from '../../utils/chain/defineChain.js'
 
-export const mainnet = /*#__PURE__*/ defineChain({
+export const sepolia = /*#__PURE__*/ defineChain({
   id: 2,
   network: 'homestead',
   name: 'Starknet Sepolia',

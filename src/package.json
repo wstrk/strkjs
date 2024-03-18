@@ -1,7 +1,7 @@
 {
   "name": "strkjs",
   "description": "TypeScript Interface for Starknet",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "main": "./_cjs/index.js",
   "module": "./_esm/index.js",
   "types": "./_types/index.d.ts",
