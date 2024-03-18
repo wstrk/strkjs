@@ -1,9 +1,9 @@
 import { defineChain } from '../../utils/chain/defineChain.js'
 
 export const mainnet = /*#__PURE__*/ defineChain({
-  id: 1,
+  id: 3,
   network: 'homestead',
-  name: 'Starknet',
+  name: 'Starknet Goerli',
   nativeCurrency: { name: 'Stark', symbol: 'STRK', decimals: 18 },
   rpcUrls: {
     alchemy: {
@@ -11,32 +11,32 @@ export const mainnet = /*#__PURE__*/ defineChain({
       webSocket: ['wss://starknet-mainnet.g.alchemy.com/v2'],
     },
     infura: {
-      http: ['https://starknet-mainnet.infura.io/v3'],
-      webSocket: ['wss://starknet-mainnet.infura.io/ws/v3'],
+      http: ['https://starknet-goerli.infura.io/v3'],
+      webSocket: ['wss://starknet-goerli.infura.io/ws/v3'],
     },
     default: {
-      http: ['https://free-rpc.nethermind.io/mainnet-juno'],
+      http: ['https://free-rpc.nethermind.io/goerli-juno'],
     },
     public: {
-      http: ['https://free-rpc.nethermind.io/mainnet-juno'],
+      http: ['https://free-rpc.nethermind.io/goerli-juno'],
     },
   },
   blockExplorers: {
     starkcompass: {
       name: 'Stark Compass',
-      url: 'https://goerli.starkcompass.com',
+      url: 'https://starkcompass.com',
     },
     voyager: {
       name: 'Voyager',
-      url: 'https://goerli.voyager.online',
+      url: 'https://voyager.online',
     },
     starkscan: {
       name: 'Stark Scan',
-      url: 'https://goerli.starkscan.co',
+      url: 'https://starkscan.co',
     },
     default: {
       name: 'Stark Compass',
-      url: 'https://goerli.starkcompass.com',
+      url: 'https://starkcompass.com',
     },
   },
 })
