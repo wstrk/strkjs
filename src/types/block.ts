@@ -83,7 +83,7 @@ export type BlockIdentifier<TQuantity = bigint> = {
 
 export type BlockNumber<TQuantity = bigint> = TQuantity
 
-export type BlockTag = 'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'
+export type BlockTag = 'latest' | 'pending' 
 
 export type Uncle<
   TQuantity = bigint,

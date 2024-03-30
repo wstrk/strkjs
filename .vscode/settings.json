@@ -20,5 +20,6 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+  "editor.lineNumbers": "relative"
 }

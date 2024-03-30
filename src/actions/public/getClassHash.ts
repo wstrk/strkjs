@@ -1,3 +1,4 @@
+
 import type { Address } from 'abitype'
 
 import type { Client } from '../../clients/createClient.js'
@@ -12,9 +13,9 @@ import {
   numberToHex,
 } from '../../utils/encoding/toHex.js'
 
-export type GetStorageAtParameters = {
-  address: Felt
-  slot: Felt
+
+export type GetClassHashParameters = {
+  address: Address
 } & (
   | {
       blockNumber?: never
@@ -26,46 +27,48 @@ export type GetStorageAtParameters = {
     }
 )
 
-export type GetStorageAtReturnType = Felt | undefined
+export type GetClassHashAtReturnType = Felt | undefined
 
-export type GetStorageAtErrorType =
+// export type GetBytecodeReturnType = Hex | undefined
+
+export type GetClassHashAtErrorType =
   | NumberToHexErrorType
   | RequestErrorType
   | ErrorType
 
 /**
- * Returns the value from a storage slot at a given address.
+ * Retrieves the classhash at an address.
  *
- * - Docs: https://viem.sh/docs/contract/getStorageAt
- * - JSON-RPC Methods: [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat)
+ * - Docs: https://viem.sh/docs/contract/getBytecode
+ * - JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
  *
  * @param client - Client to use
- * @param parameters - {@link GetStorageAtParameters}
- * @returns The value of the storage slot. {@link GetStorageAtReturnType}
+ * @param parameters - {@link GetBytecodeParameters}
+ * @returns The contract's bytecode. {@link GetBytecodeReturnType}
  *
  * @example
  * import { createPublicClient, http } from 'viem'
  * import { mainnet } from 'viem/chains'
- * import { getStorageAt } from 'viem/contract'
+ * import { getBytecode } from 'viem/contract'
  *
  * const client = createPublicClient({
  *   chain: mainnet,
  *   transport: http(),
  * })
- * const code = await getStorageAt(client, {
+ * const code = await getBytecode(client, {
  *   address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
- *   slot: toHex(0),
  * })
  */
-export async function getStorageAt<TChain extends Chain | undefined>(
+export async function getBytecode<TChain extends Chain | undefined>(
   client: Client<Transport, TChain>,
-  { address, blockNumber, blockTag = 'latest', slot }: GetStorageAtParameters,
-): Promise<GetStorageAtReturnType> {
+  { address, blockNumber, blockTag = 'latest' }: GetClassHashParameters,
+): Promise<GetClassHashAtReturnType> {
   const blockNumberHex =
     blockNumber !== undefined ? numberToHex(blockNumber) : undefined
-  const data = await client.request({
-    method: 'starknet_getStorageAt',
-    params: [address, slot, blockNumberHex || blockTag],
+  const hex = await client.request({
+    method: 'starknet_getClassHashAt',
+    params: [address, blockNumberHex || blockTag],
   })
-  return data
+  if (hex === '0x') return undefined
+  return hex
 }

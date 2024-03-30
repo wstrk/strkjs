@@ -1,0 +1,14 @@
+{
+  "name": "check-something",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "strkjs": "^0.0.6"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

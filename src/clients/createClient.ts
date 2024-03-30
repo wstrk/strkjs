@@ -5,11 +5,12 @@ import type { ParseAccountErrorType } from '../accounts/utils/parseAccount.js'
 import type { ErrorType } from '../errors/utils.js'
 import type { Account } from '../types/account.js'
 import type { Chain } from '../types/chain.js'
-import type {
-  EIP1193RequestFn,
-  EIP1474Methods,
-  RpcSchema,
-} from '../types/eip1193.js'
+// import type {
+//   EIP1193RequestFn,
+//   EIP1474Methods,
+//   RpcSchema,
+// } from '../types/eip1193.js'
+import type { SNIP1193RequestFn, SNIP1474Methods, RpcSchema } from '../types/snip1193.js'
 import type { Prettify } from '../types/utils.js'
 import { parseAccount } from '../utils/accounts.js'
 import { uid } from '../utils/uid.js'
@@ -139,8 +140,8 @@ type Client_Base<
   /** Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds. */
   pollingInterval: number
   /** Request function wrapped with friendly error handling */
-  request: EIP1193RequestFn<
-    rpcSchema extends undefined ? EIP1474Methods : rpcSchema
+  request: SNIP1193RequestFn<
+    rpcSchema extends undefined ? SNIP1474Methods : rpcSchema
   >
   /** The RPC transport */
   transport: ReturnType<transport>['config'] & ReturnType<transport>['value']

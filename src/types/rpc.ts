@@ -8,7 +8,7 @@ import type {
 } from './block.js'
 import type { FeeHistory, FeeValues } from './fee.js'
 import type { Log } from './log.js'
-import type { Hex } from './misc.js'
+import type { Hex, Felt } from './misc.js'
 import type { Proof } from './proof.js'
 import type {
   TransactionEIP1559,
@@ -131,4 +131,11 @@ export type RpcAccountStateOverride = {
 
 export type RpcStateOverride = {
   [address: Address]: RpcAccountStateOverride
+}
+
+export type RpcStateUpdate = {
+  bloch_hash: Felt,
+  new_root: Felt,
+  old_root: Felt,
+  state_diff: Felt,
 }

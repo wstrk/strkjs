@@ -1338,7 +1338,7 @@ export type RpcSchema = readonly {
 
 export type RpcSchemaOverride = Omit<RpcSchema[number], 'Method'>
 
-export type EIP1193Parameters<
+export type SNIP1193Parameters<
   TRpcSchema extends RpcSchema | undefined = undefined,
 > = TRpcSchema extends RpcSchema
   ? {
@@ -1358,8 +1358,28 @@ export type EIP1193Parameters<
       method: string
       params?: unknown
     }
+// export type EIP1193Parameters<
+//   TRpcSchema extends RpcSchema | undefined = undefined,
+// > = TRpcSchema extends RpcSchema
+//   ? {
+//       [K in keyof TRpcSchema]: Prettify<
+//         {
+//           method: TRpcSchema[K] extends TRpcSchema[number]
+//             ? TRpcSchema[K]['Method']
+//             : never
+//         } & (TRpcSchema[K] extends TRpcSchema[number]
+//           ? TRpcSchema[K]['Parameters'] extends undefined
+//             ? { params?: never }
+//             : { params: TRpcSchema[K]['Parameters'] }
+//           : never)
+//       >
+//     }[number]
+//   : {
+//       method: string
+//       params?: unknown
+//     }
 
-export type EIP1193RequestOptions = {
+export type SNIP1193RequestOptions = {
   // The base delay (in ms) between retries.
   retryDelay?: number
   // The max number of times to retry.
@@ -1373,13 +1393,16 @@ type DerivedRpcSchema<
   ? [TRpcSchemaOverride & { Method: string }]
   : TRpcSchema
 
-export type EIP1193RequestFn<
+
+
+
+export type SNIP1193RequestFn<
   TRpcSchema extends RpcSchema | undefined = undefined,
 > = <
   TRpcSchemaOverride extends RpcSchemaOverride | undefined = undefined,
-  TParameters extends EIP1193Parameters<
+  TParameters extends SNIP1193Parameters<
     DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>
-  > = EIP1193Parameters<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>>,
+  > = SNIP1193Parameters<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>>,
   _ReturnType = DerivedRpcSchema<
     TRpcSchema,
     TRpcSchemaOverride
@@ -1391,5 +1414,27 @@ export type EIP1193RequestFn<
     : unknown,
 >(
   args: TParameters,
-  options?: EIP1193RequestOptions,
+  options?: SNIP1193RequestOptions,
 ) => Promise<_ReturnType>
+
+
+// export type EIP1193RequestFn<
+//   TRpcSchema extends RpcSchema | undefined = undefined,
+// > = <
+//   TRpcSchemaOverride extends RpcSchemaOverride | undefined = undefined,
+//   TParameters extends EIP1193Parameters<
+//     DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>
+//   > = EIP1193Parameters<DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>>,
+//   _ReturnType = DerivedRpcSchema<
+//     TRpcSchema,
+//     TRpcSchemaOverride
+//   > extends RpcSchema
+//     ? Extract<
+//         DerivedRpcSchema<TRpcSchema, TRpcSchemaOverride>[number],
+//         { Method: TParameters['method'] }
+//       >['ReturnType']
+//     : unknown,
+// >(
+//   args: TParameters,
+//   options?: EIP1193RequestOptions,
+// ) => Promise<_ReturnType>

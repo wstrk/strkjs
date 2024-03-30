@@ -1,13 +1,19 @@
 import { http, createPublicClient, stringify } from 'strkjs'
-import { mainnet, sepolia } from 'strkjs/chains'
+import { mainnet, sepolia, goerli } from 'strkjs/chains'
 
 const publicClients = [
   createPublicClient({
-    chain: sepolia as any,
+    chain: mainnet,
+    transport: http(
+      'https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_7/mUuYKCE9VZg_ouOyAnoYg2vPpKp0RMkY',
+    ),
+  }),
+  createPublicClient({
+    chain: sepolia,
     transport: http(),
   }),
   createPublicClient({
-    chain: mainnet,
+    chain: goerli,
     transport: http(
       'https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_7/mUuYKCE9VZg_ouOyAnoYg2vPpKp0RMkY',
     ),
